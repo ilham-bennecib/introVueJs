@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="shopping-list">
+      <h1>{{header}}</h1>
+      <ul>
+        <li v-for="item in items" :key="item.id">{{item.label}}</li>
+      </ul>
+      </div>
+    <script type="module" src="/src/main.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+      const shoppingListApp = Vue.createApp({
+        data() {
+          return {
+            header: "Ma liste de courses",
+            items : [
+                      {id : 1, label :"Céréales"},
+                      {id : 2, label :" Chocolat"},
+                      {id : 3, label :"Pommes"},
+            ]
+          }
+        }
+      })
+      .mount("#shopping-list");
+      shoppingListApp.items.push({id :4, label : "pates à tartiner"});
+      </script>
+  </body>
+</html>
