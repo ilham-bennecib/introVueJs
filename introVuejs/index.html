@@ -10,22 +10,27 @@
     <div id="shopping-list">
       <h1>{{header}}</h1>
 
-      <input v-model="newItem"  
-        @keyup.enter="addItem()"
-        type="text" 
-        placeholder="ajouter un item">
-<br>
-      <label>
-        <input type="checkbox" v-model="highPriority">Priorité élevéé
-
-      </label>
+      <button v-if="editing" @click="doEdit(false)" class = "btn btn-cancel">Masquer le formulaire</button>
+      <button v-else @click="doEdit(true)" class = "btn btn-primary">Ajouter un item</button>
       <br>
-      <button
-        v-on:click="addItem()" 
-        class="btn btn-primary">
-        
-        Ajouter
-</button>
+      <div class="add-item-form" v-if="editing">
+        <input v-model="newItem"  
+          @keyup.enter="addItem()"
+          type="text" 
+          placeholder="ajouter un item">
+        <br>
+        <label>
+          <input type="checkbox" v-model="highPriority">Priorité élevéé
+
+        </label>
+        <br>
+        <button
+          v-on:click="addItem()" 
+          class="btn btn-primary">
+          
+          Ajouter 
+        </button>
+</div>
 
       <ul>
         <li v-for="item in items" :key="item.id">{{item.label}}</li>
@@ -42,6 +47,7 @@
             header: "Ma liste de courses",
             newItem:"",
             highPriority:false,
+            editing: true,
             items : [
                       {id : 1, label :"Céréales"},
                       {id : 2, label :" Chocolat"},
@@ -52,8 +58,12 @@
         },
         methods: {
             addItem() {
-              this.items.push({id:this.items.length + 1, label: this.newItem});
+              this.items.push({id:this.items.length + 1, label: this.newItem});//on utilise this pour acceder aux données de l'objey VUE
               this.newItem ="";
+            },
+            doEdit(editing){
+              this.editing = editing;
+              this.newItem = ""
             }
           }
       })
