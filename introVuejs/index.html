@@ -11,7 +11,7 @@
       <h1>{{header}}</h1>
 
       <input v-model="newItem"  
-        @keyup.enter="items.push({id:items.length+1, label: newItem})"
+        @keyup.enter="addItem()"
         type="text" 
         placeholder="ajouter un item">
 <br>
@@ -21,7 +21,7 @@
       </label>
       <br>
       <button
-        v-on:click="items.push({id:items.length + 1, label: newItem})" 
+        v-on:click="addItem()" 
         class="btn btn-primary">
         
         Ajouter
@@ -48,7 +48,14 @@
                       {id : 3, label :"Pommes"},
             ]
           }
-        }
+          
+        },
+        methods: {
+            addItem() {
+              this.items.push({id:this.items.length + 1, label: this.newItem});
+              this.newItem ="";
+            }
+          }
       })
       .mount("#shopping-list");
       shoppingListApp.items.push({id :4, label : "pates à tartiner"});
